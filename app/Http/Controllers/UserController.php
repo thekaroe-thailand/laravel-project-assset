@@ -6,6 +6,7 @@ use App\Models\UserModel;
 use Illuminate\Http\Request;
 use App\Models\AssetCategoriesModel;
 use App\Models\AssetModel;
+use App\Models\AssetImageModel;
 
 class UserController extends Controller {
     public function register(Request $request) {
@@ -82,6 +83,37 @@ class UserController extends Controller {
         $asset->save();
 
         return redirect()->route('my-post');
+    }
+
+    public function assetImage(Request $request) {
+        $assetImages = AssetImageModel::where('asset_id', $request->id)->get();
+        $asset = AssetModel::find($request->id);
+
+        return view('pages.asset-image', compact('assetImages', 'asset'));
+    }
+
+    public function assetImageSubmit(Request $request) {
+        $image = $request->file('image');
+        $fileName = $image->store('uploads', 'public');
+        $fileName = str_replace('uploads/', '', $fileName);
+
+        $assetImage = new AssetImageModel();
+        $assetImage->asset_id = $request->id;
+        $assetImage->image = $fileName;
+        $assetImage->save();
+
+        return redirect()->route('asset-image', ['id' => $request->id]);
+    }
+
+    public function setMainImage(Request $request) {
+        $assetImage = AssetImageModel::find($request->id);
+        AssetImageModel::where('asset_id', $assetImage->asset_id)->update(['is_main' => 0]);
+
+        $assetImage = AssetImageModel::find($request->id);
+        $assetImage->is_main = 1;
+        $assetImage->save();
+
+        return redirect()->route('asset-image', ['id' => $assetImage->asset_id]);
     }
 
 }

@@ -85,7 +85,8 @@
                 </a>
                 @endif
 
-                <a href="" class="bg-purple-600 text-white px-4 py-2 rounded-md text-sm">
+                <a href="{{ route('asset-image', $asset->id) }}" 
+                    class="bg-purple-600 text-white px-4 py-2 rounded-md text-sm">
                     <i class="fa-solid fa-images mr-1"></i>
                     ภาพ
                 </a>
