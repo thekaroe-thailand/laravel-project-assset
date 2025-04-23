@@ -17,6 +17,20 @@
                 window.location.href = "{{ route('set-main-image', ['id' => ':id']) }}".replace(':id', id);
             }
         }
+
+        async function deleteImage(id) {
+            const button = await Swal.fire({
+                title: 'ยืนยันการลบภาพ',
+                text: 'คุณต้องการลบภาพใช่หรือไม่',
+                icon: 'question',
+                showCancelButton: true,
+                showConfirmButton: true
+            });
+
+            if (button.isConfirmed) {
+                window.location.href = "{{ route('delete-image', ['id' => ':id']) }}".replace(':id', id);
+            }
+        }
     </script>
 
     <div class="container">

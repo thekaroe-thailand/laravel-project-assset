@@ -2,10 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about', function() {
     return view ('pages.about');
@@ -49,9 +48,9 @@ Route::get('/image/{fileName}', function($fileName) {
 });
 
 Route::get('/set-main-image/{id}', [UserController::class, 'setMainImage'])->name('set-main-image');
-
-
-
+Route::get('/delete-image/{id}', [UserController::class, 'deleteImage'])->name('delete-image');
+Route::post('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('detail');
 
 
 

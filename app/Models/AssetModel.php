@@ -27,4 +27,20 @@ class AssetModel extends Model {
             return 'ยกเลิก';
         }
     }
+
+    public function assetImage() {
+        $assetImage = AssetImageModel::where('asset_id', $this->id)
+            ->where('is_main', 1)
+            ->first();
+
+        return $assetImage ?? null;
+    }
+
+    public function user() {
+        return $this->belongsTo(UserModel::class, 'user_id', 'id');
+    }
+
+    public function images() {
+        return $this->hasMany(AssetImageModel::class, 'asset_id', 'id');
+    }
 }

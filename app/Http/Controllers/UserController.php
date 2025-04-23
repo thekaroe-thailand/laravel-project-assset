@@ -116,6 +116,16 @@ class UserController extends Controller {
         return redirect()->route('asset-image', ['id' => $assetImage->asset_id]);
     }
 
+    public function deleteImage(Request $request) {
+        $assetImage = AssetImageModel::find($request->id);
+        $imageName = $assetImage->image;
+        $assetImage->delete();
+
+        unlink(storage_path('app/public/uploads/'.$imageName));
+
+        return redirect()->route('asset-image', ['id' => $assetImage->asset_id]);
+    }
+
 }
 
 
