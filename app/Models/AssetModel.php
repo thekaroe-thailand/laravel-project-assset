@@ -43,4 +43,8 @@ class AssetModel extends Model {
     public function images() {
         return $this->hasMany(AssetImageModel::class, 'asset_id', 'id');
     }
+
+    public function countViews() {
+        return AssetViewModel::where('asset_id', $this->id)->count();
+    }
 }

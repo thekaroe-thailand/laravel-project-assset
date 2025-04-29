@@ -51,8 +51,9 @@ Route::get('/set-main-image/{id}', [UserController::class, 'setMainImage'])->nam
 Route::get('/delete-image/{id}', [UserController::class, 'deleteImage'])->name('delete-image');
 Route::post('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('detail');
-
-
+Route::get('/popular', [HomeController::class, 'popular'])->name('popular');
+Route::get('/asset-in-categories/{id}', [HomeController::class, 'assetInCategories'])
+    ->name('asset-in-categories');
 
 
 

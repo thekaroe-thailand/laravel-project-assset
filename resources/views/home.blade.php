@@ -40,7 +40,7 @@
                         </div>
                         <div>
                             <i class="fa-solid fa-eye"></i>
-                            999
+                            {{ $asset->countViews() }}
                         </div>
                     </div>
                 </div>

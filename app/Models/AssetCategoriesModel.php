@@ -10,4 +10,8 @@ class AssetCategoriesModel extends Model {
         'name',
         'description'
     ];
+
+    public function assets() {
+        return $this->hasMany(AssetModel::class, 'asset_categories_id');
+    }
 }
