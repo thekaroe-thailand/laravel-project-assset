@@ -18,10 +18,22 @@ class HomeController extends Controller {
     }
 
     public function search(Request $request) {
+        $priceOrder = $request->price_order;
         $search = $request->search;
         $assets = AssetModel::where('status', 'normal')
-            ->where('name', 'like', '%'.$search.'%')
-            ->get();
+            ->where('name', 'like', '%'.$search.'%');
+
+        if ($priceOrder != "") {
+            if ($priceOrder == "min-to-max") {
+                $assets = $assets->orderBy('price', 'asc');
+            } else {
+                $assets = $assets->orderBy('price', 'desc');
+            }
+        } else {
+            $assets = $assets->orderBy('id', 'desc');
+        }
+        
+        $assets = $assets->get();
 
         return view('home', compact('assets', 'search'));
     }

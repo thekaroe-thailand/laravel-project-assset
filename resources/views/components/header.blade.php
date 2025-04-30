@@ -59,6 +59,13 @@
         @if (isset($user)) 
         <div class="user-info flex gap-4 items-center">
             <span><i class="fa-solid fa-user"></i> {{ $user->name }}</span>
+
+            <a href="{{ route('edit-profile') }}" 
+                class="border border-white rounded-md px-4 py-2">
+                <i class="fa-solid fa-pencil mr-1"></i>
+                แก้ไขข้อมูล
+            </a>
+
             <a href="{{ route('logout') }}" class="border border-white rounded-md px-4 py-2">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 ออกจากระบบ

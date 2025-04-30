@@ -126,6 +126,28 @@ class UserController extends Controller {
         return redirect()->route('asset-image', ['id' => $assetImage->asset_id]);
     }
 
+
+    public function editProfile() {
+        $userId = session()->get('user')->id;
+        $user = UserModel::find($userId);
+
+        return view('pages.edit-profile', compact('user'));
+    }
+
+    public function editProfileSubmit(Request $request) {
+        if ($request->password != $request->password_confirmation) {
+            return redirect()->route('edit-profile');
+        }
+
+        $user = session()->get('user');
+        $oldUser = UserModel::find($user->id);
+        $oldUser->name = $request->name;
+        $oldUser->email = $request->email;
+        $oldUser->password = $request->password ?? $oldUser->password;
+        $oldUser->save();
+
+        return view('pages.edit-profile-success');
+    }
 }
 
 

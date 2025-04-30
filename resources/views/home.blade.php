@@ -3,7 +3,14 @@
 @section('content')
     <form action="{{ route('search') }}" method="post" class="flex gap-1">
         @csrf
-        <input type="text" name="search" placeholder="ค้นหาทรัพย์สิน" value="{{ $search ?? '' }}" />
+        <div class="flex gap-1 w-full">
+            <input type="text" name="search" placeholder="ค้นหาทรัพย์สิน" value="{{ $search ?? '' }}" />
+            <select name="price_order" class="border border-gray-300 rounded-md p-2 w-[250px]">
+                <option value="">ไม่กำหนดช่วงราคา</option>
+                <option value="min-to-max">ราคาจากน้อยไปมาก</option>
+                <option value="max-to-min">ราคาจากมากไปน้อย</option>
+            </select>
+        </div>
         <button type="submit" class="flex items-center gap-2">
             <i class="fa fa-search"></i>
             ค้นหา

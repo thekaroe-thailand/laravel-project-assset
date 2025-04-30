@@ -1,5 +1,11 @@
 @extends('layout')
 
+<script>
+    function showImage(image) {
+        document.getElementById('image').src = image;
+    }
+</script>
+
 @section('content')
     <div class="container">
         <div class="flex gap-4">
@@ -8,7 +14,7 @@
                 <h2 class="text-gray-800 mb-4">{{ $asset->detail }}</h2>
 
                 @if ($asset->assetImage()) 
-                    <img src="{{ url('image/'.$asset->assetImage()->image) }}"
+                    <img id='image' src="{{ url('image/'.$asset->assetImage()->image) }}"
                         alt="รูปภาพหลัก"
                         class="w-full rounded-xl mb-4" />
                 @else
@@ -19,8 +25,11 @@
 
                 <div class="grid grid-cols-4 gap-4">
                     @foreach ($asset->images as $image)
-                        <img src="{{ url('image/'.$image->image) }}" alt="รูปภาพทรัพย์สิน"
-                            class="w-full h-[100px] rounded-xl object-cover" />
+                        <img src="{{ url('image/'.$image->image) }}" 
+                            alt="รูปภาพทรัพย์สิน"
+                            class="w-full h-[100px] rounded-xl object-cover"
+                            onclick="showImage('{{ url('image/'.$image->image) }}')"
+                            />
                     @endforeach
                 </div>
             </div>

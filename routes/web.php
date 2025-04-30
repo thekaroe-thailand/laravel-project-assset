@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -54,8 +55,14 @@ Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('detail');
 Route::get('/popular', [HomeController::class, 'popular'])->name('popular');
 Route::get('/asset-in-categories/{id}', [HomeController::class, 'assetInCategories'])
     ->name('asset-in-categories');
-
-
+Route::get('/edit-profile', [UserController::class, 'editProfile'])
+    ->name('edit-profile');
+Route::post('/edit-profile', [UserController::class, 'editProfileSubmit'])
+    ->name('edit-profile-submit');
+Route::get('/backoffice-signin', [AdminController::class, 'index'])
+    ->name('backoffice-signin');
+Route::post('/backoffice-sigin', [AdminController::class, 'signin'])
+    ->name('backoffice-signin');
 
 
 

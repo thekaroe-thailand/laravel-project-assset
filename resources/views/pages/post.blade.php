@@ -7,7 +7,7 @@
             @csrf 
             <div>
                 <div>ประเภทของทรัพย์</div>
-                <select name="asset_categories_id">
+                <select name="asset_categories_id" class="form-control w-full">
                     @foreach ($assetCategories as $item) 
                     <option value="{{ $item->id }}">
                         {{ $item->name }}
