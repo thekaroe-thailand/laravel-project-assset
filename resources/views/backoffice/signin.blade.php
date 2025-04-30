@@ -15,6 +15,7 @@
 
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
+    </head>
     <body class="bg-gray-200 min-h-screen flex items-center justify-center">
         <div class="max-w-md w-full mx-4">
             <div class="bg-white rounded-lg shadow-lg p-8">
