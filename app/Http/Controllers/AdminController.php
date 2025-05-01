@@ -23,7 +23,8 @@ class AdminController extends Controller {
             return redirect()->route('backoffice-signin')
                 ->withErrors('user not found');
         }
-        if (!Hash::check($password, $admin->passowrd)) {
+
+        if (!Hash::check($password, $admin->password)) {
             return redirect()->route('backoffice-signin')
                 ->withErrors('wrong password');
         }
@@ -36,6 +37,47 @@ class AdminController extends Controller {
 
         session(['admin' => $dataForSession]);
 
-        return redirect()->route('backoffice.dashboard');
+        return redirect()->route('backoffice-dashboard');
     }
+
+    public function dashboard() {
+        return view('backoffice.home');
+    }
+
+    public function signout() {
+        session()->forgot('admin');
+        return redirect()->route('backoffice-signin');
+    }
+
+    public function editProfile() {
+        $adminId = session('admin')['id'];
+        $admin = AdminModel::find($adminId);
+
+        return view('backoffice.edit-profile', compact('admin'));
+    }
+
+    public function editProfileSubmit(Request $request) {
+        if ($request->password != $request->password_confirmation) {
+            return redirect()->route('backoffice-edit-profile')
+                ->withErrors('password not match');
+        }
+
+        $adminId = session('admin')['id'];
+        $admin = AdminModel::find($adminId);
+        $admin->name = $request->name;
+        $admin->username = $request->username;
+        $admin->password = Hash::make($request->password) ?? $admin->password;
+        $admin->save();
+
+        return redirect()->route('backoffice-edit-profile')
+            ->with('success', 'Profile updated successully');
+    }
+
+    public function list() {
+        $admins = AdminModel::all();
+
+        return view('backoffice.list', compact('admins'));
+    }
+
 }
+

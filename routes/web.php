@@ -61,9 +61,29 @@ Route::post('/edit-profile', [UserController::class, 'editProfileSubmit'])
     ->name('edit-profile-submit');
 Route::get('/backoffice-signin', [AdminController::class, 'index'])
     ->name('backoffice-signin');
-Route::post('/backoffice-sigin', [AdminController::class, 'signin'])
+Route::post('/backoffice-signin', [AdminController::class, 'signin'])
     ->name('backoffice-signin');
+Route::get('/backoffice/dashboard', [AdminController::class, 'dashboard'])
+    ->name('backoffice-dashboard');
+Route::get('/backoffice/signout', [AdminController::class, 'signout'])
+    ->name('backoffice-signout');
+Route::get('/backoffice/edit-profile', [AdminController::class, 'editProfile'])
+    ->name('backoffice-edit-profile');
+Route::post('/backoffice/edit-profile', [AdminController::class, 'editProfileSubmit'])
+    ->name('backoffice-edit-profile-submit');
 
-
-
+Route::group(['prefix' => 'backoffice'], function() {
+    Route::get('/list', [AdminController::class, 'list'])
+        ->name('backoffice-list');
+    Route::delete('/delete-admin/{id}', [AdminController::class, 'deleteAdmin'])
+        ->name('backoffice-delete-admin');
+    Route::get('/add-admin', [AdminController::class, 'addAdmin'])
+        ->name('badkoffice-add-admin');
+    Route::post('/add-admin', [AdminController::class, 'addAdminSubmit'])
+        ->name('backoffice-add-admin-submit');
+    Route::get('/edit-admin/{id}', [AdminController::class, 'editAdmin'])
+        ->name('backoffice-edit-admin');
+    Route::put('/edit-admin/{id}', [AdminController::class, 'editAdminSubmit'])
+        ->name('backoffice-edit-admin-submit');
+});
 
