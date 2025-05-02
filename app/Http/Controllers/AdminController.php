@@ -45,7 +45,7 @@ class AdminController extends Controller {
     }
 
     public function signout() {
-        session()->forgot('admin');
+        session()->forget('admin');
         return redirect()->route('backoffice-signin');
     }
 
@@ -79,5 +79,75 @@ class AdminController extends Controller {
         return view('backoffice.list', compact('admins'));
     }
 
+    public function addAdmin() {
+        return view('backoffice.add-admin');
+    }
+
+    public function addAdminSubmit(Request $request) {
+        if ($request->password != $request->password_confirmation) {
+            return redirect()->route('backoffice-add-admin')
+                ->withErrors('password not match');
+        }
+
+        $admin = new AdminModel();
+        $admin->name = $request->name;
+        $admin->username = $request->username;
+        $admin->password = Hash::make($request->password);
+        $admin->level = $request->role;
+        $admin->save();
+
+        return redirect()->route('backoffice-list')->with('success', 'Admin added successfully');
+    }
+
+    public function deleteAdmin($id) {
+        $admin = AdminModel::find($id);
+        $admin->delete();
+
+        return redirect()->route('backoffice-list');
+    }
+
+    public function editAdmin($id) {
+        $admin = AdminModel::find($id);
+        return view('backoffice.add-admin', compact('admin'));
+    }
+
+    public function editAdminSubmit(Request $request, $id) {
+        if ($request->password != $request->password_confirmation) {
+            return redirect()->route('backoffice-add-admin')
+                ->withErrors('password not match');
+        }
+
+        $admin = AdminModel::find($id);
+        $admin->name = $request->name;
+        $admin->username = $request->username;
+
+        if (!empty($request->password)) {
+            $admin->password = Hash::make($request->password);
+        }
+
+        $admin->level = $request->role;
+        $admin->save();
+
+        return redirect()->route('backoffice-list')->with('success', 'Admin updated successfully');
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

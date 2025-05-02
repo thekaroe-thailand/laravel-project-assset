@@ -61,7 +61,7 @@
             <i class="fas fa-chart-line"></i>
             <span>สถิติการดูทรัพย์</span>
         </a>
-        <a>
+        <a href="{{ route('backoffice-list') }}">
             <i class="fas fa-user-cog"></i>
             <span>ผู้ใช้งานระบบ</span>
         </a>
