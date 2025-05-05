@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AssetController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -85,5 +86,19 @@ Route::group(['prefix' => 'backoffice'], function() {
         ->name('backoffice-edit-admin');
     Route::post('/edit-admin/{id}', [AdminController::class, 'editAdminSubmit'])
         ->name('backoffice-edit-admin-submit');
+    Route::get('/user-list', [UserController::class, 'list'])
+        ->name('backoffice-user-list');
+    Route::get('/user-delete/{id}', [UserController::class, 'delete'])
+        ->name('backoffice-user-delete');
+    Route::get('/user-active/{id}', [UserController::class, 'active'])
+        ->name('backoffice-user-active');
+
+    // asset
+    Route::get('/asset-list', [AssetController::class, 'index'])
+        ->name('backoffice-asset-list');
+    Route::get('/asset-delete/{id}', [AssetController::class, 'delete'])
+        ->name('backoffice-asset-delete');
+    Route::get('/asset-info/{id}', [AssetController::class, 'info'])
+        ->name('backoffice-asset-info');
 });
 

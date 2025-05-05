@@ -49,11 +49,11 @@
             <i class="fas fa-chart-bar"></i>
             <span>Dashboard</span>
         </a>
-        <a>
+        <a href="{{ route('backoffice-user-list') }}">
             <i class="fas fa-user"></i>
             <span>สมาชิก</span>
         </a>
-        <a>
+        <a href="{{ route('backoffice-asset-list') }}">
             <i class="fas fa-house"></i>
             <span>ทรัพย์ที่ลงประกาศ</span>
         </a>

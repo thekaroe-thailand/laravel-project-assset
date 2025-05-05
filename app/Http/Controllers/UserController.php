@@ -148,6 +148,28 @@ class UserController extends Controller {
 
         return view('pages.edit-profile-success');
     }
+
+    public function list() {
+        $users = UserModel::all();
+        return view('backoffice.user.list', compact('users'));
+    }
+
+    public function delete(Request $request) {
+        $user = UserModel::find($request->id);
+        $user->status = 'inactive';
+        $user->save();
+
+        return redirect()->route('backoffice-user-list');
+    }
+
+    public function active(Request $request) {
+        $user = UserModel::find($request->id);
+        $user->status = 'active';
+        $user->save();
+
+        return redirect()->route('backoffice-user-list');
+    }
+
 }
 
 

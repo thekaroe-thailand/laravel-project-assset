@@ -12,5 +12,9 @@ class UserModel extends Model {
         'password',
         'status'
     ];
+
+    public function getStatusName() {
+        return $this->status == 'active' ? 'ใช้งาน' : 'ระงับการใช้งาน';
+    }
 }
 

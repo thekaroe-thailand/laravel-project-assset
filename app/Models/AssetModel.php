@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AssetCategoriesModel;
 
 class AssetModel extends Model {
     protected $table = 'tb_assets';
@@ -17,6 +18,10 @@ class AssetModel extends Model {
     ];
 
     public $timestamps = false;
+
+    public function assetCategories() {
+        return $this->belongsTo(AssetCategoriesModel::class, 'asset_categories_id');
+    }
 
     public function statusText() {
         if ($this->status == 'normal') {
