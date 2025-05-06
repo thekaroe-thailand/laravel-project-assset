@@ -57,7 +57,7 @@
             <i class="fas fa-house"></i>
             <span>ทรัพย์ที่ลงประกาศ</span>
         </a>
-        <a>
+        <a href="{{ route('backoffice-asset-popular') }}">
             <i class="fas fa-chart-line"></i>
             <span>สถิติการดูทรัพย์</span>
         </a>

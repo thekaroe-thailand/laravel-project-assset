@@ -27,6 +27,7 @@
                     <th>ประเภททรัพย์</th>
                     <th>ผู้ลงประกาศ</th>
                     <th style="text-align: right">ราคา</th>
+                    <th style="text-align: right">ยอดการดู</th>
                     <th width="180px"></th>
                 </tr>
             </thead> 
@@ -47,6 +48,7 @@
                     <td>{{ $asset->assetCategories->name ?? '' }}</td>
                     <td>{{ $asset->user->name }}</td>
                     <td style="text-align: right">{{ number_format($asset->price) }}</td>
+                    <td style="text-align: right">{{ $asset->countViews() }}</td>
                     <td>
                         <div class="flex gap-1 justify-center items-center">
                             <a href="{{ route('backoffice-asset-info', ['id' => $asset->id]) }}"

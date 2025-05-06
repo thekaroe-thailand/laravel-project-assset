@@ -100,5 +100,7 @@ Route::group(['prefix' => 'backoffice'], function() {
         ->name('backoffice-asset-delete');
     Route::get('/asset-info/{id}', [AssetController::class, 'info'])
         ->name('backoffice-asset-info');
+    Route::get('/asset-popular', [AssetController::class, 'popular'])
+        ->name('backoffice-asset-popular');
 });
 

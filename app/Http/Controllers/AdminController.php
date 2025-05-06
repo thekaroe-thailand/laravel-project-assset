@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\AdminModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\UserModel;
+use App\Models\AssetModel;
+use App\Models\AssetViewModel;
+use App\Models\AssetCategoriesModel;
+use Illuminate\Support\Facedes\DB;
 
 class AdminController extends Controller {
     public function index() {
@@ -41,7 +46,38 @@ class AdminController extends Controller {
     }
 
     public function dashboard() {
-        return view('backoffice.home');
+        $totalUsers = UserModel::count();
+        $totalAssets = AssetModel::count();
+        $totalViews = AssetViewModel::count();
+        $totalAssetCategories = AssetCategoriesModel::count();
+
+        $listSumUserInMonths = [];
+        $listAssetInCategoriesData = [];
+        $listAssetInCategoriesLabel = [];
+        $listAssetInCategoriesColor = [];
+
+        $assetCategories = AssetCategoriesModel::all();
+
+        foreach ($assetCategories as $assetCategory) {
+            $listAssetInCategoriesLabel[] = $assetCategory->name;
+            $listAssetInCategoriesData[] = $assetCategory->assets->count();
+            $listAssetInCategoriesColor[] = '#'.substr(str_shuffle('012345789abcdef'), 0, 6);
+        }
+
+        for ($i = 1; $i <= 12; $i++) {
+            $listSumUserInMonths[] = UserModel::whereMonth('created_at', $i)->count();
+        }
+
+        return view('backoffice.home', compact(
+            'totalUsers',
+            'totalAssets',
+            'totalViews',
+            'totalAssetCategories',
+            'listSumUserInMonths',
+            'listAssetInCategoriesLabel',
+            'listAssetInCategoriesData',
+            'listAssetInCategoriesColor'
+        ));
     }
 
     public function signout() {
